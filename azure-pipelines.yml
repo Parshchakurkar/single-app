@@ -1,0 +1,42 @@
+#trigger is master 
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+
+
+steps:
+- script: echo Hello, Terraform single app!
+  displayName: 'Run a one-line script'
+
+- task: DownloadSecureFile@1
+  name: publicKey
+  inputs:
+    secureFile: 'id_rsa.pub'
+
+
+- task: TerraformCLI@0
+  inputs:
+    command: 'init'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/terraform_files'
+    backendType: 'azurerm'
+    backendServiceArm: 'Free Trial(e40c9fbc-48e9-4ae3-9f40-5c33d3c6cfd5)'
+    ensureBackend: true
+    backendAzureRmResourceGroupName: 'single-app-resource-grp'
+    backendAzureRmResourceGroupLocation: 'Central US'
+    backendAzureRmStorageAccountName: 'singleappstogae'
+    backendAzureRmContainerName: 'singleappcontainer'
+    backendAzureRmKey: 'terraform.tfstate'
+
+- task: TerraformCLI@0
+  inputs:
+    command: 'apply'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/terraform_files'
+    environmentServiceName: 'single-app-service-conn'
+    commandOptions: '-var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_key=(publicKey.secureFilePath)'
+
+    
+
+
