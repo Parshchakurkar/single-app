@@ -1,7 +1,3 @@
-provider "azurerm" {
-  features{}
-}
-
 resource "azurerm_kubernetes_cluster" "single-app-cluster" {
   resource_group_name = azurerm_resource_group.single-app-resource.name
   location            = azurerm_resource_group.single-app-resource.location
