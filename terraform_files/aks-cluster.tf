@@ -1,9 +1,9 @@
-resource "azurerm_kubernetes_cluster" "sinfle-app-cluster" {
+resource "azurerm_kubernetes_cluster" "single-app-cluster" {
   resource_group_name = azurerm_resource_group.single-app-resource.name
-  location            = azurerm_kubernetes_cluster.sinfle-app-cluster.location
-  name                = "${var.resource_group_name}-${var.environemnt}-cluster"
-  dns_prefix          = "${var.resource_group_name}-${var.environemnt}-cluster"
-  node_resource_group = "${var.resource_group_name}-${var.environemnt}-nrg"
+  location            = azurerm_resource_group.single-app-resource.location
+  name                = "${azurerm_resource_group.single-app-resource.name}-cluster"
+  dns_prefix          = "${azurerm_resource_group.single-app-resource.name}-cluster"
+  node_resource_group = "${azurerm_resource_group.single-app-resource.name}-nrg"
 
   default_node_pool {
     name       = "systempool"
@@ -14,7 +14,7 @@ resource "azurerm_kubernetes_cluster" "sinfle-app-cluster" {
   }
 
   identity {
-    type = "systemAssigned"
+    type = "SystemAssigned"
   }
 
   network_profile {

@@ -16,13 +16,13 @@ terraform {
   # B). Required Terraform Providers
   required_providers {
     azurerm = {
-      source  = "hashicorp/azurerm"
-      version = "2.90.0"
+      source = "hashicorp/azurerm"
+      #version = "=2.46.0"
     }
 
     azuread = {
-      source  = "hashicorp/azurerm"
-      version = "2.13.0"
+      source = "hashicorp/azurerm"
+      #version = "~> 2.0.0"
     }
 
     random = {
@@ -33,8 +33,8 @@ terraform {
   }
   backend "azurerm" {
     resource_group_name  = "single-app-resource-grp"
-    storage_account_name = "single-app-storageacwe"
-    container_name       = "single-app-container"
+    storage_account_name = "singleappstogae"
+    container_name       = "singleappcontainer"
     key                  = "terraform.tfstate"
 
   }
