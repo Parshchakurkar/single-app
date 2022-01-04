@@ -42,9 +42,7 @@ terraform {
 }
 
 # 3. Terraform "Provider" Block for AzureRM (feature block/ outside setting)
-provider "azurerm" {
-  features {}
-}
+
 # 4. Terraform Resource Block: Define a Random Pet Resource
 resource "random_pet" "single-app-random_pet" {
 
