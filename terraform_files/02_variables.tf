@@ -8,19 +8,12 @@ variable "resource_group_name" {
   default = "single-app-resource-group"
 }
 
-#env of cluster
+
 variable "environment" {
   default = "dev"
 }
+#variable "client_id" {}
 
-variable "client_id" {
+#variable "client_secret" {}
 
-}
-
-variable "client_secret" {
-
-}
-
-variable "ssh_key" {
-
-}
+#variable "ssh_key" {}
