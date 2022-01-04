@@ -18,11 +18,28 @@ steps:
     secureFile: 'id_rsa.pub'
 
 
-- task: CmdLine@2
-  displayName: Terraform initilize
+- task: TerraformCLI@0
+  displayName: Terraform init
   inputs:
-    script: 'echo terraform init'
-    workingDirectory: 'https://github.com/Parshchakurkar/single-app/tree/main/terraform_files'
+    command: 'init'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/terraform_files'
+    backendType: 'azurerm'
+    backendServiceArm: 'Free Trial(e40c9fbc-48e9-4ae3-9f40-5c33d3c6cfd5)'
+    ensureBackend: true
+    backendAzureRmResourceGroupName: 'single-app-resource-grp'
+    backendAzureRmResourceGroupLocation: 'Central US'
+    backendAzureRmStorageAccountName: 'singleappstogae'
+    backendAzureRmContainerName: 'singleappcontainer'
+    backendAzureRmKey: 'terraform.tfstate'
 
+- task: TerraformCLI@0
+  displayName: Terraform apply
+  inputs:
+    command: 'apply'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/terraform_files'
+    environmentServiceName: 'single-app-service-conn'
+    commandOptions: '-var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_key=(publicKey.secureFilePath)'
+
+    
 
 
