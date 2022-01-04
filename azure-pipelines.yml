@@ -19,12 +19,10 @@ steps:
 
 
 - task: CmdLine@2
-  displayName: change directory to wroking directory
+  displayName: Terraform initilize
   inputs:
-    script: |
-      echo cd /mnt/c/Devops/terraform_files
-      echo terraform int
-    workingDirectory: '/mnt/c/Devops/terraform_files'
+    script: 'echo terraform init'
+    workingDirectory: 'https://github.com/Parshchakurkar/single-app/tree/main/terraform_files'
 
 
 
