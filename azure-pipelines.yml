@@ -2,6 +2,7 @@
 trigger:
 - main
 
+
 pool:
   vmImage: ubuntu-latest
 
@@ -17,26 +18,13 @@ steps:
     secureFile: 'id_rsa.pub'
 
 
-- task: TerraformCLI@0
+- task: CmdLine@2
+  displayName: change directory to wroking directory
   inputs:
-    command: 'init'
-    workingDirectory: '$(System.DefaultWorkingDirectory)/terraform_files'
-    backendType: 'azurerm'
-    backendServiceArm: 'Free Trial(e40c9fbc-48e9-4ae3-9f40-5c33d3c6cfd5)'
-    ensureBackend: true
-    backendAzureRmResourceGroupName: 'single-app-resource-grp'
-    backendAzureRmResourceGroupLocation: 'Central US'
-    backendAzureRmStorageAccountName: 'singleappstogae'
-    backendAzureRmContainerName: 'singleappcontainer'
-    backendAzureRmKey: 'terraform.tfstate'
+    script: |
+      echo cd /mnt/c/Devops/terraform_files
+      echo terraform int
+    workingDirectory: '/mnt/c/Devops/terraform_files'
 
-- task: TerraformCLI@0
-  inputs:
-    command: 'apply'
-    workingDirectory: '$(System.DefaultWorkingDirectory)/terraform_files'
-    environmentServiceName: 'single-app-service-conn'
-    commandOptions: '-var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_key=(publicKey.secureFilePath)'
-
-    
 
 
