@@ -13,6 +13,7 @@ steps:
   displayName: 'Run a one-line script'
 
 - task: DownloadSecureFile@1
+  displayName: download secretkey
   name: publicKey
   inputs:
     secureFile: 'id_rsa.pub'
