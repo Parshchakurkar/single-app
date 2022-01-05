@@ -13,6 +13,7 @@ steps:
   displayName: 'Run a one-line script'
 
 - task: DownloadSecureFile@1
+  displayName: download secretkey
   name: publicKey
   inputs:
     secureFile: 'id_rsa.pub'
@@ -32,14 +33,10 @@ steps:
     backendAzureRmContainerName: 'singleappcontainer'
     backendAzureRmKey: 'terraform.tfstate'
 
-- task: TerraformCLI@0
+
+
+
+- task: CmdLine@2
   displayName: Terraform apply
   inputs:
-    command: 'apply'
-    workingDirectory: '$(System.DefaultWorkingDirectory)/terraform_files'
-    environmentServiceName: 'single-app-service-conn'
-    commandOptions: '-var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_key=(publicKey.secureFilePath)'
-
-    
-
-
+    script: 'terraform apply -var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_key=$(publicKey.secureFilePath)'
