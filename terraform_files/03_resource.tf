@@ -1,7 +1,3 @@
-provider "azurerm" {
-  #alias = "singleappprovider"
-  features {}
-}
 
 resource "azurerm_resource_group" "single-app-resource" {
   location = var.location
