@@ -33,11 +33,14 @@ steps:
     backendAzureRmContainerName: 'singleappcontainer'
     backendAzureRmKey: 'terraform.tfstate'
 
-
-
-
-- task: CmdLine@2
-  displayName: Terraform apply
+- task: TerraformCLI@0
   inputs:
-    script: 'terraform apply -var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_key=$(publicKey.secureFilePath)'
-    workingDirectory: '/usr/bin/'
+    command: 'apply'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/terraform_files'
+    environmentServiceName: 'single-app-service-conn'
+    secureVarsFile: 'id_rsa.pub'
+    commandOptions: '-var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_key=$(publicKey.secureFilePath)'
+
+    
+
+
