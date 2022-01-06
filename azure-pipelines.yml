@@ -40,6 +40,7 @@ steps:
     environmentServiceName: 'single-app-service-conn'
     secureVarsFile: 'rsa.pub'
     commandOptions: '-var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_key=$(publicKey.secureFilePath)'
+    allowTelemetryCollection: false
 
     
 
