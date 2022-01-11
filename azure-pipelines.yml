@@ -33,15 +33,18 @@ steps:
     backendAzureRmContainerName: 'singleappcontainer'
     backendAzureRmKey: 'terraform.tfstate'
 
-- task: TerraformCLI@0
-  inputs:
-    command: 'apply'
-    workingDirectory: '$(System.DefaultWorkingDirectory)/terraform_files'
-    environmentServiceName: 'single-app-service-conn'
-    secureVarsFile: 'rsa.pub'
-    commandOptions: '-var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_key=$(publicKey.secureFilePath)'
-    allowTelemetryCollection: false
 
-    
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '3.x'
+    addToPath: true
+    architecture: 'x64'
+  
+- task: PythonScript@0
+  inputs:
+    scriptSource: "inline"
+    script: |
+      import os
+      os.system("terraform plan")
 
 
